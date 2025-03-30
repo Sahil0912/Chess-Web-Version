@@ -1,0 +1,24 @@
+{
+  "name": "chess-game",
+  "version": "1.0.0",
+  "description": "Chess game with integrated login system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha --require jsdom-global/register"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^10.2.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

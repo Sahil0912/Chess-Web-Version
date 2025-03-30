@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chess Game - Login</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h1>Chess Game Login</h1>
+  <div id="login-form">
+    <h2>Login</h2>
+    <input type="text" id="login-username" placeholder="Username" /><br />
+    <input type="password" id="login-password" placeholder="Password" /><br />
+    <button id="login-btn">Login</button>
+  </div>
+  <div id="register-form">
+    <h2>Register</h2>
+    <input type="text" id="register-username" placeholder="Username" /><br />
+    <input type="password" id="register-password" placeholder="Password" /><br />
+    <button id="register-btn">Register</button>
+  </div>
+
+  <!-- Notification container -->
+  <div id="notification-container"></div>
+
+  <script>
+    // Helper: Show notification message at bottom-right.
+    function showNotification(message, duration = 3000) {
+      const container = document.getElementById("notification-container");
+      const notification = document.createElement("div");
+      notification.className = "notification";
+      notification.innerText = message;
+      container.appendChild(notification);
+      setTimeout(() => {
+        notification.classList.add("fade-out");
+        notification.addEventListener("transitionend", () => {
+          notification.remove();
+        });
+      }, duration);
+    }
+
+    // Clear inputs after action.
+    function clearInputs() {
+      document.getElementById('login-username').value = '';
+      document.getElementById('login-password').value = '';
+      document.getElementById('register-username').value = '';
+      document.getElementById('register-password').value = '';
+    }
+
+    // Login functionality
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showNotification(data.message);
+        clearInputs();
+        setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+      } else {
+        showNotification(data.error);
+        clearInputs();
+      }
+    });
+
+    // Registration functionality
+    document.getElementById('register-btn').addEventListener('click', async () => {
+      const username = document.getElementById('register-username').value;
+      const password = document.getElementById('register-password').value;
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+      const data = await res.json();
+      showNotification(data.message || data.error);
+      clearInputs();
+    });
+  </script>
+</body>
+</html>
