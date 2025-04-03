@@ -6,13 +6,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header with Logout Button -->
+  <!-- logout btn -->
   <header>
     <h1>Chess Game</h1>
     <button id="logout-btn">Logout</button>
   </header>
 
-  <!-- Game Menu: Appears first -->
+  <!-- menu -->
   <section id="menuScreen">
     <h2>Select Game Mode</h2>
     <div id="menu">
@@ -26,7 +26,7 @@
     </div>
   </section>
 
-  <!-- Game Screen: Initially hidden -->
+  <!-- board -->
   <section id="gameScreen" style="display: none;">
     <div id="boardWrapper">
       <div id="chessboard"></div>
@@ -35,10 +35,10 @@
     </div>
   </section>
 
-  <!-- Notification Container -->
+  <!-- notification -->
   <div id="notification-container"></div>
 
-  <!-- Pawn Promotion Modal -->
+  <!-- Pawn Promotion -->
   <div id="promotionModal" class="modal">
     <div class="modal-content">
       <h2>Choose Promotion</h2>
@@ -62,7 +62,7 @@
       });
     });
 
-    // Start game from the menu.
+    // Start game
     document.getElementById("startGame").addEventListener("click", () => {
       document.getElementById("menuScreen").style.display = "none";
       document.getElementById("gameScreen").style.display = "block";

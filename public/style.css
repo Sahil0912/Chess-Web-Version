@@ -7,12 +7,12 @@ body {
   text-align: center;
 }
 
-/* Menu Screen */
+/* Menu */
 #menuScreen {
   padding-top: 50px;
 }
 
-/* Game Screen is centered both horizontally and vertically */
+/* game centered */
 #gameScreen {
   display: flex;
   justify-content: center;
@@ -20,14 +20,13 @@ body {
   height: 100vh;
 }
 
-/* Board Wrapper: relative positioning for clocks; centered */
+/* clocks centered */
 #boardWrapper {
   position: relative;
-  width: 640px;  /* board width */
+  width: 640px;
   margin: 0 auto;
 }
 
-/* Chessboard */
 #chessboard {
   display: grid;
   grid-template-columns: repeat(8, 80px);
@@ -46,7 +45,7 @@ body {
   border-radius: 4px;
   width: 150px;
   position: absolute;
-  right: -170px; /* place clock just to the right of the board */
+  right: -170px; /*Just right*/
 }
 
 #blackClock {

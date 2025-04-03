@@ -20,11 +20,10 @@
     <button id="register-btn">Register</button>
   </div>
 
-  <!-- Notification container -->
   <div id="notification-container"></div>
 
   <script>
-    // Helper: Show notification message at bottom-right.
+    // notifiction in bottom right
     function showNotification(message, duration = 3000) {
       const container = document.getElementById("notification-container");
       const notification = document.createElement("div");
@@ -47,7 +46,7 @@
       document.getElementById('register-password').value = '';
     }
 
-    // Login functionality
+    // Login
     document.getElementById('login-btn').addEventListener('click', async () => {
       const username = document.getElementById('login-username').value;
       const password = document.getElementById('login-password').value;
@@ -67,7 +66,7 @@
       }
     });
 
-    // Registration functionality
+    // Registration
     document.getElementById('register-btn').addEventListener('click', async () => {
       const username = document.getElementById('register-username').value;
       const password = document.getElementById('register-password').value;

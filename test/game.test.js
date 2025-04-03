@@ -26,7 +26,7 @@ describe('Chess Game Tests', () => {
   let testBoard;
 
   before(() => {
-    // Create a fresh board with just the pieces we need for testing
+    // Testing the board
     testBoard = Array(8).fill().map(() => Array(8).fill(null));
   });
 
@@ -46,14 +46,14 @@ describe('Chess Game Tests', () => {
 
   describe('Rook Movement', () => {
     it('should only allow prime-numbered moves for all rooks', () => {
-      // Test both friendly and enemy rooks
+      // Test both rooks
       testBoard = Array(8).fill().map(() => Array(8).fill(null));
       
-      // Friendly rook (white)
+      //(white)
       testBoard[3][3] = { type: 'rook', color: 'white', hasMoved: false };
       const friendlyMoves = generateRookMoves(testBoard, { row: 3, col: 3 }, testBoard[3][3]);
       
-      // Enemy rook (black)
+      // (black)
       testBoard[4][4] = { type: 'rook', color: 'black', hasMoved: false };
       const enemyMoves = generateRookMoves(testBoard, { row: 4, col: 4 }, testBoard[4][4]);
       
@@ -151,7 +151,7 @@ describe('Chess Game Tests', () => {
     it('should allow kingside castling when valid', () => {
       testBoard[7][5] = null;
       testBoard[7][6] = null;
-      const king = testBoard[7][4]; // Don't forget to define king
+      const king = testBoard[7][4];
       
       expect(canCastle(testBoard, king, { side: 'kingside', pos: { row: 7, col: 4 }})).to.be.true;
     });
@@ -160,7 +160,7 @@ describe('Chess Game Tests', () => {
       testBoard[7][5] = null;
       testBoard[7][6] = null;
       testBoard[6][5] = { type: 'bishop', color: 'black', hasMoved: true };
-      const king = testBoard[7][4]; // Don't forget to define king
+      const king = testBoard[7][4]; 
       
       expect(canCastle(testBoard, king, { side: 'kingside', pos: { row: 7, col: 4 }})).to.be.false;
     });
@@ -170,7 +170,7 @@ describe('Chess Game Tests', () => {
     let testBoard;
   
     beforeEach(() => {
-      // Initialize a fresh board before each test
+      // fresh board
       testBoard = Array(8).fill().map(() => Array(8).fill(null));
       
       // Add pieces that match the serialization expectation

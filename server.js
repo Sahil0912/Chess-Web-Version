@@ -7,16 +7,14 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Path to the users file (for simplicity, we'll store users in a JSON file)
+// User's data
 const USERS_FILE = path.join(__dirname, 'users.json');
 
-// Middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
-// Serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Helper functions for user data
+//Load user data
 function loadUsers() {
   if (!fs.existsSync(USERS_FILE)) {
     return [];
@@ -29,7 +27,7 @@ function saveUsers(users) {
   fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
 }
 
-// Registration endpoint
+// Registration
 app.post('/api/register', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -48,7 +46,7 @@ app.post('/api/register', (req, res) => {
   res.json({ message: 'Registration successful.' });
 });
 
-// Login endpoint
+// Login
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   let users = loadUsers();
@@ -58,7 +56,6 @@ app.post('/api/login', (req, res) => {
     return res.status(400).json({ error: 'Invalid username or password.' });
   }
 
-  // In a production app, you would create a session or return a token here.
   res.json({ message: 'Login successful.' });
 });
 
