@@ -165,37 +165,55 @@ function createPiece(type, color) {
 /* ----- DRAWING THE BOARD ----- */
 function drawBoard() {
   boardElement.innerHTML = "";
-  for (let row = 0; row < 8; row++) {
-    for (let col = 0; col < 8; col++) {
+  
+  // Loop over 8 rows and columns for display purposes.
+  for (let displayRow = 0; displayRow < 8; displayRow++) {
+    for (let displayCol = 0; displayCol < 8; displayCol++) {
+      // Calculate the actual board coordinates:
+      // If current player is black, flip both row and col.
+      let actualRow = currentPlayer === 'black' ? 7 - displayRow : displayRow;
+      let actualCol = currentPlayer === 'black' ? 7 - displayCol : displayCol;
+      
       let square = document.createElement("div");
       square.classList.add("square");
-      square.dataset.row = row;
-      square.dataset.col = col;
-      square.classList.add((row + col) % 2 === 0 ? "light" : "dark");
-
-      if (selectedPos && selectedPos.row === row && selectedPos.col === col) {
+      // Set the data attributes using the actual board coordinates.
+      square.dataset.row = actualRow;
+      square.dataset.col = actualCol;
+      // Determine square color based on actual coordinates.
+      square.classList.add((actualRow + actualCol) % 2 === 0 ? "light" : "dark");
+      
+      // Highlight selected square (if any)
+      if (selectedPos && selectedPos.row == actualRow && selectedPos.col == actualCol) {
         square.classList.add("selected");
       }
 
-      if (board[row][col] && board[row][col].type === "king") {
-        if (isSquareAttacked(board, { row, col }, getOpponent(board[row][col].color))) {
+      // Restore the check alert: if there is a king in this square and it is in check, add "in-check" class.
+      if (board[actualRow][actualCol] && board[actualRow][actualCol].type === "king") {
+        if (isSquareAttacked(board, { row: actualRow, col: actualCol }, getOpponent(board[actualRow][actualCol].color))) {
           square.classList.add("in-check");
         }
       }
-
-      if (board[row][col]) {
+      
+      // If there is a piece at the actual board position, add it.
+      if (board[actualRow][actualCol]) {
         let pieceEl = document.createElement("img");
-        pieceEl.classList.add("piece-img", board[row][col].color, board[row][col].type);
-        pieceEl.src = getPieceImageSrc(board[row][col]);
-        pieceEl.alt = board[row][col].type;
+        // Use your piece image class (e.g., "piece-img")
+        pieceEl.classList.add("piece-img");
+        pieceEl.src = getPieceImageSrc(board[actualRow][actualCol]);
+        pieceEl.alt = board[actualRow][actualCol].type;
+        // Attach event listeners for dragging/clicking.
         pieceEl.addEventListener("mousedown", onPieceMouseDown);
         square.appendChild(pieceEl);
       }
+      
+      // Attach click listener to the square.
       square.addEventListener("click", onSquareClick);
       boardElement.appendChild(square);
     }
   }
 }
+
+
 
 function getPieceImageSrc(piece) {
   return `assets/${piece.color}_${piece.type}.png`;
@@ -267,8 +285,13 @@ function onMouseUp(e) {
   const boardRect = boardElement.getBoundingClientRect();
   const x = e.clientX - boardRect.left;
   const y = e.clientY - boardRect.top;
-  const col = Math.floor(x / 80);
-  const row = Math.floor(y / 80);
+  let displayCol = Math.floor(x / 80);
+  let displayRow = Math.floor(y / 80);
+
+  // Convert display coordinates to actual board coordinates.
+  // When currentPlayer is 'black', the board is reversed.
+  let row = currentPlayer === 'black' ? 7 - displayRow : displayRow;
+  let col = currentPlayer === 'black' ? 7 - displayCol : displayCol;
 
   if (row >= 0 && row < 8 && col >= 0 && col < 8) {
     let move = {
@@ -276,20 +299,21 @@ function onMouseUp(e) {
       to: { row, col },
       piece: selectedPiece,
     };
-    // Detect castling: if king moves two squares horizontally
+
+    // Detect castling: if king moves two squares horizontally.
     if (
       move.piece.type === "king" &&
       Math.abs(move.to.col - move.from.col) === 2
     ) {
       move.castle = move.to.col > move.from.col ? "kingside" : "queenside";
     }
+
     if (isLegalMove(board, move, currentPlayer)) {
       makeMove(move);
     } else {
       showNotification("Illegal move attempted via drag:", move);
     }
   }
-
   document.body.removeChild(draggingPieceEl);
   draggingPieceEl = null;
   dragStartPos = null;
@@ -299,6 +323,7 @@ function onMouseUp(e) {
   document.removeEventListener("mouseup", onMouseUp);
   drawBoard();
 }
+
 
 /* ----- MAKING MOVES ----- */
 function makeMove(move) {
@@ -322,6 +347,7 @@ function makeMove(move) {
 
   // Switch turn. currentPlayer becomes the player who is about to move.
   currentPlayer = getOpponent(currentPlayer);
+  drawBoard();
   startClock();
 
   // FIXED: Check for checkmate on the current player's turn
@@ -349,8 +375,10 @@ function makeMove(move) {
 
   selectedPiece = null;
   selectedPos = null;
-  drawBoard();
+  // drawBoard();
 }
+
+
 
 /* ----- MOVE GENERATION ----- */
 function generateMovesForPiece(board, pos) {

@@ -239,3 +239,11 @@ header h1 {
 .notification.fade-out {
   opacity: 0;
 }
+.square {
+  transition: background-color 0.3s ease;
+}
+
+.piece-img {
+  transition: transform 0.3s ease;
+}
+
