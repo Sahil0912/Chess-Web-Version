@@ -966,5 +966,7 @@ if (typeof module !== 'undefined' && module.exports) {
     isKingSafe,
     createPiece,
     enPassantTarget
+	generateAllMoves
+	handlePawnDoubleStep
   };
 }
