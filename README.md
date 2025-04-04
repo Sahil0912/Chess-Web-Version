@@ -42,7 +42,19 @@ Follow these instructions to set up and run the Chess Web Version locally.
 
     Navigate to http://localhost:3000/login.html to begin playing.
 
-**Testing and CI**
-- *Automated Tests:* Tests have been integrated into the project to ensure each feature works as expected.
- - *Continuous Integration:* The project is set up with CI to automatically run tests on each commit, ensuring ongoing code quality and stability.
+## Testing and CI
+- **Automated Tests:** Tests have been integrated into the project to ensure each feature works as expected.
+ - **Continuous Integration:** The project is set up with CI to automatically run tests on each commit, ensuring ongoing code quality and stability.
+
+## Technologies Used
+
+- **HTML, CSS, and JavaScript:** For building the front-end user interface.
+- **Node.js:** The runtime environment for executing JavaScript on the server.
+- **Express:** A minimalist web framework used to handle server routing and middleware.
+- **Body-Parser:** Middleware for parsing JSON payloads from incoming requests.
+- **bcryptjs:** A library used for hashing and securely comparing passwords.
+- **fs (File System) & path:** Built-in Node.js modules used for file operations and managing file paths.
+- **Mocha:** A JavaScript testing framework used for running tests.
+- **npm:** The package manager used for managing dependencies and running scripts.
+- **Continuous Integration (CI):** Automated CI tools integrated into the repository to run tests and maintain code quality.
 
