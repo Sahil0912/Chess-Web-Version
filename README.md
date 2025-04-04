@@ -33,14 +33,14 @@ Follow these instructions to set up and run the Chess Web Version locally.
     cd Chess_Web_Version
     ```
 2. **Running the Game**
+- *Start the server*
 
-    a> *Start the server*
-        ```bash
-        npm start
+    ```bash
+    npm start
 
-    b> *Open the Game in Your Browser:*
+- *Open the Game in Your Browser:*
 
-        Navigate to http://localhost:3000/login.html to begin playing.
+    Navigate to http://localhost:3000/login.html to begin playing.
 
 **Testing and CI**
 - *Automated Tests:* Tests have been integrated into the project to ensure each feature works as expected.
