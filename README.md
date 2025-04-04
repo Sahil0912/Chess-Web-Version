@@ -31,11 +31,14 @@ Follow these instructions to set up and run the Chess Web Version locally.
     git clone https://github.com/Sahil0912/Chess_Web_Version.git
    
     cd Chess_Web_Version
+    ```
 2. **Running the Game**
 
-    a> *Start the server*    
+    a> *Start the server*
+
         ```bash
         npm start
+        ```
     b> *Open the Game in Your Browser:*
         Navigate to http://localhost:3000/login.html to begin playing.
 
